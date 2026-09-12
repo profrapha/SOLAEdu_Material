@@ -114,32 +114,65 @@
             border-color: rgba(16, 185, 129, 0.4);
         }
 
-        /* Top Navigation Helper (Voltar + Breadcrumb) */
-        .navigation-helper {
-            max-width: 1200px;
-            margin: 1.25rem auto 0;
-            padding: 0 1.5rem;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
+        /* Barra de Breadcrumb limpa à esquerda */
+.navigation-helper {
+    max-width: 1200px;
+    margin: 1rem auto 0;
+    padding: 0 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
 
-        .btn-voltar {
-            background-color: var(--bg-secondary);
-            color: var(--accent-blue);
-            border: 1px solid var(--border-card);
-            padding: 0.45rem 0.9rem;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
+/* Cabeçalho de cada tela com o título à esquerda/centro e botão Voltar à direita */
+.view-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-card);
+    padding-bottom: 1.25rem;
+}
+
+.view-header-info h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+    color: var(--text-main);
+}
+
+.view-header-info p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Botão Voltar destacado no canto superior direito */
+.btn-voltar-card {
+    background-color: #1e293b;
+    color: var(--accent-blue);
+    border: 1px solid #38bdf8;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-voltar-card:hover {
+    background-color: var(--accent-blue);
+    color: #0b0f19;
+    transform: translateX(-3px);
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.35);
+}
 
         .btn-voltar:hover {
             background-color: rgba(56, 189, 248, 0.1);
@@ -193,6 +226,7 @@
             margin-bottom: 0.5rem;
             background: linear-gradient(135deg, #ffffff, #94a3b8);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -649,9 +683,6 @@
 
     <!-- Barra Superior com Botão Voltar e Breadcrumb -->
     <div class="navigation-helper" id="navHelper" style="display: none;">
-        <button class="btn-voltar" onclick="voltarNivelAnterior()">
-            &#8592; Voltar
-        </button>
         <div class="breadcrumb-bar" id="breadcrumbBar"></div>
     </div>
 
@@ -1190,7 +1221,19 @@
 
             bar.innerHTML = crumbs;
         }
-
+function criarCabecalhoComVoltar(titulo, subtitulo) {
+            return `
+                <div class="view-header-bar">
+                    <div class="view-header-info">
+                        <h2>${titulo}</h2>
+                        <p>${subtitulo}</p>
+                    </div>
+                    <button class="btn-voltar-card" onclick="voltarNivelAnterior()">
+                        &#8592; Voltar
+                    </button>
+                </div>
+            `;
+        }
         function renderizar() {
             renderBreadcrumb();
             const container = document.getElementById("mainContainer");
@@ -1270,11 +1313,7 @@
         // 2. FRENTES
         function renderFrentes(container) {
             container.innerHTML = `
-                <div class="view-header">
-                    <h2>Selecione a Frente de Estudo</h2>
-                    <p>Escolha qual disciplina você deseja estudar agora:</p>
-                </div>
-
+                ${criarCabecalhoComVoltar("Selecione a Frente de Estudo", "Escolha qual disciplina você deseja estudar agora:")}
                 <div class="grid-cards">
                     <div class="interactive-card" onclick="irNivel('anos', { materia: 'Matematica', frente: 'Algebra' })">
                         <div>
@@ -1318,10 +1357,7 @@
             let nomeFrente = (nav.materia === "Fisica") ? "Física" : catalogo.Matematica.frentes[nav.frente].nome;
 
             let cardsHtml = `
-                <div class="view-header">
-                    <h2>${nomeFrente} - Selecione o Ano</h2>
-                    <p>Selecione a sua turma para visualizar as unidades programáticas:</p>
-                </div>
+                ${criarCabecalhoComVoltar(`${nomeFrente} - Selecione o Ano`, "Selecione a sua turma para visualizar as unidades programáticas:")}
                 <div class="years-grid">
             `;
 
@@ -1344,10 +1380,7 @@
             let unidadesDisponiveis = (nav.materia === "Fisica") ? catalogo.Fisica.anos[nav.ano].unidades : catalogo.Matematica.frentes[nav.frente].anos[nav.ano].unidades;
 
             let cardsHtml = `
-                <div class="view-header">
-                    <h2>${anoNome} - Unidades Temáticas</h2>
-                    <p>Selecione a unidade para escolher o caderno de atividades:</p>
-                </div>
+                ${criarCabecalhoComVoltar(`${anoNome} - Unidades Temáticas`, "Selecione a unidade para escolher o caderno de atividades:")}
                 <div class="units-grid">
             `;
 
@@ -1376,10 +1409,7 @@
             let uni = (nav.materia === "Fisica") ? catalogo.Fisica.anos[nav.ano].unidades[nav.unidadeId] : catalogo.Matematica.frentes[nav.frente].anos[nav.ano].unidades[nav.unidadeId];
 
             let html = `
-                <div class="view-header">
-                    <h2>${nav.unidadeId}: ${uni.titulo}</h2>
-                    <p>Qual material você deseja acessar agora?</p>
-                </div>
+                ${criarCabecalhoComVoltar(`${nav.unidadeId}: ${uni.titulo}`, "Qual material você deseja acessar agora?")}
                 <div class="cadernos-selector-grid">
             `;
 
@@ -1450,10 +1480,18 @@
 
             container.innerHTML = `
                 <div class="material-view-box">
-                    <span style="font-size: 0.75rem; font-weight: 700; color: ${isAutoral ? 'var(--accent-blue)' : 'var(--accent-amber)'}; text-transform: uppercase;">
-                        ${nav.unidadeId} &bull; ${mat.rotulo}
-                    </span>
-                    <h2 style="font-size: 1.6rem; margin: 0.5rem 0; font-weight: 700;">${uni.titulo}</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 1rem;">
+                        <div>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: ${isAutoral ? 'var(--accent-blue)' : 'var(--accent-amber)'}; text-transform: uppercase;">
+                                ${nav.unidadeId} &bull; ${mat.rotulo}
+                            </span>
+                            <h2 style="font-size: 1.6rem; margin: 0.5rem 0; font-weight: 700;">${uni.titulo}</h2>
+                        </div>
+                        <button class="btn-voltar-card" onclick="voltarNivelAnterior()">
+                            &#8592; Voltar
+                        </button>
+                    </div>
+
                     <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">${uni.desc}</p>
 
                     <div class="material-actions">
