@@ -1,0 +1,718 @@
+% !TEX output_directory = ../publica
+\documentclass[twoside, 10pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+
+% --- FONTE PADRÃO (Estilo Didático Encorpado) ---
+\usepackage{helvet} 
+\renewcommand{\familydefault}{\sfdefault}
+
+% --- GEOMETRIA E ESPAÇAMENTO ---
+\usepackage[top=1.6cm, bottom=1.5cm, left=0.9cm, right=0.9cm, headheight=24pt, headsep=0.4cm]{geometry}
+\usepackage{microtype} 
+\usepackage{setspace}
+\setstretch{1.0} % Espaçamento simples
+\usepackage{parskip}
+\setlength{\parskip}{2pt}
+\setlength{\parindent}{0pt}
+
+% ==========================================
+%   PAINEL DE CONTROLE DE ESPAÇAMENTO E ESCALA
+% ==========================================
+\newlength{\espacoPosTitulo}
+\setlength{\espacoPosTitulo}{0.3cm}  % Espaço entre o título do capítulo e a 1ª questão
+
+\newlength{\espacoPreQuestao}
+\setlength{\espacoPreQuestao}{0.1cm} % Espaço entre a linha fina divisória e a questão
+
+\newlength{\espacoQuestao}
+\setlength{\espacoQuestao}{0.2cm}    % Espaço de "respiro" no FINAL de cada questão
+
+\newlength{\espacoAlt}
+\setlength{\espacoAlt}{0.2cm}        % Espaço para quebras manuais de alternativas
+
+% Controle de Listas Automáticas (Ambientes enumerate / itemize)
+\usepackage{enumitem}
+\setlist{
+    itemsep=0.4cm,    
+    topsep=0.1cm,     
+    parsep=0pt,       
+    partopsep=0pt     
+}
+
+% Controle de Escala de Imagens
+\newcommand{\larguraTikz}{0.85\linewidth} 
+% ==========================================
+
+% --- MATEMÁTICA ---
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{nccmath}
+\usepackage{mathastext}
+
+% --- CORES CUSTOMIZADAS PREMIUM ---
+\usepackage{xcolor}
+\definecolor{indigo}{HTML}{4F46E5}
+\definecolor{CorTitUm}{HTML}{FF6F61}
+\definecolor{CorTitDois}{HTML}{FF6F61}
+\definecolor{CorTitTres}{HTML}{658894}
+\definecolor{CorLinha}{HTML}{B0B0B0}   
+\definecolor{metal}{HTML}{7F8C8D}
+\definecolor{vidro}{HTML}{3498DB}
+\definecolor{ouro}{HTML}{F1C40F}
+\definecolor{concreto}{HTML}{95A5A6}
+\definecolor{madeira}{HTML}{D35400}
+\definecolor{CinzaEscuro}{HTML}{4A4A4A} 
+\definecolor{CinzaMedio}{HTML}{848484} 
+\definecolor{Cinzablack}{HTML}{353535} 
+
+% --- MINI-CABEÇALHO E RODAPÉ AUTORAL (TWOSIDE ESPELHADO) ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} 
+\renewcommand{\headrulewidth}{0.3pt} 
+\renewcommand{\footrulewidth}{0.3pt}
+\fancyhead[LE]{\small\sffamily\bfseries\color{gray!75} ESTRUTURA DA TERRA E ATMOSFERA}
+\fancyhead[RO]{\small\sffamily\color{gray!75} \texttt{profraphaelpaulino.com.br}}
+\fancyfoot[LE]{\small \textbf{\thepage}}
+\fancyfoot[RO]{\small \textbf{\thepage}}
+
+% --- CAIXAS DE DESTAQUE (tcolorbox) ---
+\usepackage[most]{tcolorbox}
+
+% 1. Box de Resposta do Aluno
+\newtcolorbox{boxresponda}{
+    colback=white,        
+    colframe=gray!45,       
+    boxrule=0pt,          
+    leftrule=1.7pt,        
+    sharp corners,        
+    enlarge left by=0.4cm,  
+    width=\linewidth-0.4cm, 
+    left=8pt, right=0pt,  
+    top=2pt, bottom=2pt,
+    fontupper=\small 
+}
+
+% 2. Box de Dica (Estilo Ciano Claríssimo)
+\definecolor{CorDicaBorda}{HTML}{17c1be} 
+\definecolor{CorDicaFundo}{HTML}{f3fbfb} 
+\newtcolorbox{boxdica}{
+    colback=CorDicaFundo,        
+    colframe=CorDicaBorda,      
+    boxrule=0pt,          
+    leftrule=2.5pt,         
+    sharp corners,        
+    width=\linewidth, 
+    left=8pt, right=8pt,  
+    top=6pt, bottom=6pt,
+    halign=center, 
+    fontupper=\small      
+}
+
+% --- TÍTULOS (ESTILO EDITORIAL) ---
+\usepackage{titlesec}
+\titleformat{\section}{\color{black}\large\bfseries}{\thesection}{0em}{\vspace{0.1cm}\titlerule[0.8pt]}
+\titlespacing*{\section}{0pt}{10pt}{6pt} 
+
+\titleformat{\subsubsection}[runin]{\color{black}\bfseries}{}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{0pt}{0.15cm}
+
+% --- PACOTES DE ESTRUTURA E GRÁFICOS ---
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+\setlength{\columnseprule}{0.5pt}
+\def\columnseprulecolor{\color{CorLinha}}
+
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{circuitikz}
+\usetikzlibrary{shadows, shapes.misc, positioning, calc}
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+\thispagestyle{empty}
+\color{Cinzablack}
+\vspace*{-1.8cm}
+
+% --- CABEÇALHO PRINCIPAL AUTORAL (Apenas 1ª página) ---
+\noindent
+\begin{minipage}{\textwidth}
+    \fontfamily{phv}\selectfont
+    \noindent
+    \begin{minipage}[t]{0.70\linewidth}
+        {\Large \bfseries \MakeUppercase{Caderno de Atividades Suplementares}}\\[0.1cm]
+        {\large \textmd{\textcolor{CinzaEscuro}{Unidade: Estrutura da Terra e Atmosfera}}}
+    \end{minipage}%
+    \begin{minipage}[t]{0.30\linewidth}
+        \raggedleft
+        \small \textbf{Prof. Raphael Paulino}\\
+        \textsf{\small \textcolor{indigo}{\texttt{profraphaelpaulino.com.br}}}
+    \end{minipage}
+    
+    \vspace{0.15cm}
+    \noindent\rule{\linewidth}{1.2pt}
+    \vspace{-0.1cm}
+    \footnotesize\textsf{\textbf{ÁREA:} Física \hfill \textbf{NÍVEL:} EF II (6º Ano)}
+    \vspace{0.1cm}
+    \noindent\rule{\linewidth}{0.4pt}
+\end{minipage}
+
+\par\vspace{0.3cm} 
+\raggedcolumns
+\begin{multicols*}{2}
+\vspace{0.1cm}
+
+\subsection*{Capítulo 1: Camadas Internas da Terra}
+\vspace{-0.2cm}\noindent\rule{\linewidth}{1.5pt} 
+\par\vspace{\espacoPosTitulo}
+\subsubsection*{01.} O diagrama ilustra um modelo do interior do nosso planeta, dividido didaticamente em quatro grandes regiões estruturais, baseadas em composição química e estado físico.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% 1. CORTAR BORDAS: Mude os zeros do trim (Esquerda, Baixo, Direita, Topo). Ex: trim=1cm 0cm 1cm 0cm
+% 2. TAMANHO: Para encolher só esta imagem, troque \larguraTikz por um valor (Ex: 0.5\linewidth)
+% ==========================================
+\begin{adjustbox}{trim=0cm 0cm 0cm 0cm, clip, max width=\larguraTikz}
+\begin{tikzpicture}
+\definecolor{crosta}{HTML}{8D6E63}
+\definecolor{manto}{HTML}{E67E22}
+\definecolor{nucleoext}{HTML}{F1C40F}
+\definecolor{nucleoint}{HTML}{E74C3C}
+\definecolor{fundo}{HTML}{F8F9FA}
+
+% --- APLICANDO DROP SHADOW ---
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-3.5,-3.5) rectangle (3.5,3.5);
+
+\fill[crosta, drop shadow={opacity=0.2}] (0,0) circle (2.8);
+\fill[manto] (0,0) circle (2.6);
+\fill[nucleoext] (0,0) circle (1.5);
+\fill[nucleoint] (0,0) circle (0.7);
+
+\fill[fundo] (0,0) -- (3,0) arc (0:45:3) -- cycle;
+\draw[thick, white] (0,0) -- (2.8,0);
+\draw[thick, white] (0,0) -- (1.98,1.98);
+
+\node[fill=fundo, inner sep=2pt, rounded corners=2pt, font=\sffamily\footnotesize, align=center] at (-1.3,2) {Região B};
+\node[fill=fundo, inner sep=2pt, rounded corners=2pt, font=\sffamily\footnotesize, align=center] at (-0.8,0.8) {Região C};
+\node[fill=fundo, inner sep=2pt, rounded corners=2pt, font=\sffamily\footnotesize, align=center] at (0,-0.3) {Região D};
+\draw[stealth-] (2.7, -0.5) -- (3.2, -1) node[fill=fundo, right, inner sep=2pt, rounded corners=2pt, font=\sffamily\footnotesize, align=center] {Região A};
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\begin{boxresponda}
+\textbf{Responda:} Com base na dinâmica terrestre, identifique qual região (A, B, C ou D) corresponde à camada onde ocorrem os movimentos convectivos do magma e explique como esse movimento interfere na crosta terrestre.
+\end{boxresponda}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{02.} A compreensão das camadas da Terra envolve analisar não apenas a profundidade, mas o estado físico dos materiais. Julgue as afirmativas a seguir, classificando-as como Verdadeiras (V) ou Falsas (F).
+
+\begin{enumerate}[label=(\ \ ), itemsep=\espacoAlt]
+\item O núcleo interno, apesar das altíssimas temperaturas, encontra-se no estado sólido devido à imensa pressão exercida pelas camadas superiores.
+\item A crosta terrestre é uma camada contínua e uniforme, possuindo a mesma espessura tanto sob os oceanos quanto sob os continentes.
+\item O núcleo externo é líquido e rico em ferro e níquel, sendo o principal responsável pela geração do campo magnético da Terra.
+\item O manto é formado unicamente por água em estado de ebulição, o que gera as erupções vulcânicas.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{03.} As rochas que compõem a litosfera estão sujeitas a diferentes condições dependendo da profundidade. Justifique por que o núcleo interno, mesmo apresentando temperaturas que podem ultrapassar os \textbf{5000 \textdegree C}, não derrete e permanece no estado sólido.
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{04.} Os poços de perfuração mais profundos já escavados pela humanidade atingem pouco mais de \textbf{12 km} de profundidade, uma fração minúscula em relação ao raio do nosso planeta, que é de aproximadamente \textbf{6370 km}. Demonstre como os cientistas conseguem mapear e determinar o estado físico de camadas tão profundas sem nunca terem chegado fisicamente até lá.
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{05.} (Estilo OBA) O sismograma é um registro gráfico gerado pela propagação de energia originada por abalos sísmicos. O esquema apresenta o comportamento das ondas S (secundárias), que possuem a propriedade de não se propagarem em meios líquidos.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% ==========================================
+\begin{adjustbox}{trim=0cm 0cm 0cm 0cm, clip, max width=\larguraTikz}
+\begin{tikzpicture}
+\definecolor{terracota}{HTML}{D35400}
+\definecolor{cinzamedio}{HTML}{7F8C8D}
+\definecolor{fundo}{HTML}{FDFEFE}
+
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-3,-3) rectangle (3,3);
+
+\fill[terracota!20] (0,0) circle (2.5);
+\draw[thick, cinzamedio] (0,0) circle (2.5);
+\fill[terracota!50] (0,0) circle (1.3);
+\draw[dashed, cinzamedio] (0,0) circle (1.3);
+\fill[terracota!80] (0,0) circle (0.6);
+
+\fill[red] (0,2.5) circle (0.08);
+\node[fill=fundo, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (0, 2.7) {Epicentro};
+
+\draw[thick, -stealth] (0,2.5) -- (-1.5, 1);
+\draw[thick, -stealth] (0,2.5) -- (1.5, 1);
+\draw[thick, -stealth] (0,2.5) -- (-2.2, 0);
+\draw[thick, -stealth] (0,2.5) -- (2.2, 0);
+
+\draw[thick, -stealth] (0,2.5) -- (-0.6, 1.15);
+\node[red, font=\huge, align=center] at (-0.6, 1.15) {x};
+\draw[thick, -stealth] (0,2.5) -- (0.6, 1.15);
+\node[red, font=\huge, align=center] at (0.6, 1.15) {x};
+
+\node[fill=fundo, inner sep=2pt, font=\sffamily\footnotesize, align=center] at (0,-1.8) {Zona de Sombra \\ (Sem registro de ondas S)};
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+Analisando a trajetória geométrica das frentes de onda ilustradas e sabendo das propriedades mecânicas das ondas S, conclua qual é o estado físico da camada imediatamente abaixo do manto terrestre.
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{06.} (Estilo VUNESP) Em diversas obras de ficção científica, como no clássico "Viagem ao Centro da Terra" de Júlio Verne, personagens exploram cavernas colossais repletas de cristais e oceanos subterrâneos. Do ponto de vista científico moderno, uma jornada real ao centro do planeta por seres humanos seria estruturalmente impossível. 
+
+Qual fator físico e geológico torna essa premissa ficcional impraticável para a engenharia atual?
+
+\begin{enumerate}[label=\alph*), itemsep=\espacoAlt]
+\item A ausência de minerais metálicos no núcleo terrestre, o que inviabiliza a comunicação de rádio.
+\item A diminuição contínua da temperatura, que faria o maquinário congelar antes de atingir o manto.
+\item O aumento extremo e simultâneo de temperatura e pressão, que derreteria e esmagaria qualquer sonda ou veículo.
+\item A presença de bolsões de vácuo no manto superior, impedindo a locomoção de veículos escavadores.
+\item A força da gravidade que atua de baixo para cima, expulsando materiais metálicos para a superfície.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\subsection*{Capítulo 2: Atmosfera}
+\vspace{-0.2cm}\noindent\rule{\linewidth}{1.5pt} 
+\par\vspace{\espacoPosTitulo}
+\subsubsection*{07.} O gradiente vertical da atmosfera exibe diferentes estratificações químicas e térmicas. A figura representa a elevação quilométrica a partir do nível do mar.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% ==========================================
+\begin{adjustbox}{trim=0cm 0cm 0cm 0cm, clip, max width=\larguraTikz}
+\begin{tikzpicture}
+\definecolor{tropo}{HTML}{85C1E9}
+\definecolor{estrato}{HTML}{5DADE2}
+\definecolor{meso}{HTML}{2E86C1}
+\definecolor{termo}{HTML}{1B4F72}
+\definecolor{fundo}{HTML}{F4F6F6}
+
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-0.5,-0.5) rectangle (6,5);
+
+\fill[tropo, opacity=0.8] (0,0) rectangle (4,1);
+\fill[estrato, opacity=0.8] (0,1) rectangle (4,2.2);
+\fill[meso, opacity=0.8] (0,2.2) rectangle (4,3.4);
+\fill[termo, opacity=0.8] (0,3.4) rectangle (4,4.5);
+
+\node[font=\sffamily\footnotesize, white, align=center] at (2,0.5) {Camada 1};
+\node[font=\sffamily\footnotesize, white, align=center] at (2,1.6) {Camada 2};
+\node[font=\sffamily\footnotesize, white, align=center] at (2,2.8) {Camada 3};
+\node[font=\sffamily\footnotesize, white, align=center] at (2,3.95) {Camada 4};
+
+\draw[thick, -stealth] (4.2,0) -- (4.2,4.8);
+\node[font=\sffamily\tiny, align=center, rotate=90] at (4.5,2.4) {Altitude (km)};
+
+\node[font=\sffamily\tiny, align=center] at (4.8,1) {\textbf{15 km}};
+\node[font=\sffamily\tiny, align=center] at (4.8,2.2) {\textbf{50 km}};
+\node[font=\sffamily\tiny, align=center] at (4.8,3.4) {\textbf{85 km}};
+
+\fill[white, opacity=0.7] (0.5,0.7) circle (0.15);
+\fill[white, opacity=0.7] (0.7,0.8) circle (0.2);
+\fill[white, opacity=0.7] (0.9,0.7) circle (0.15);
+
+\draw[white, dashed, thick] (0,1.9) -- (4,1.9);
+\node[fill=estrato, inner sep=1pt, font=\sffamily\tiny, white, align=center] at (2,1.9) {$O_3$};
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+Com base na disposição altimétrica, especifique em qual camada (1, 2, 3 ou 4) ocorrem as precipitações meteorológicas (chuvas e furacões) e em qual camada localiza-se o escudo gasoso que nos protege da radiação ultravioleta.
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{08.} O Efeito Estufa é frequentemente noticiado de forma negativa devido ao aquecimento global. Contudo, em sua essência natural, ele é um mecanismo vital. Demonstre a importância da atmosfera e do ciclo térmico para a manutenção da temperatura média global e a preservação da água no estado líquido.
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{09.} As zonas superiores da atmosfera apresentam características únicas ligadas à densidade gasosa e à radiação solar. Julgue as afirmativas como Verdadeiras (V) ou Falsas (F).
+
+\begin{enumerate}[label=(\ \ ), itemsep=\espacoAlt]
+\item A Mesosfera é conhecida por registrar as temperaturas mais baixas da atmosfera e é onde a maioria dos meteoroides se desintegram por atrito.
+\item Na Termosfera, o ar é tão denso que dificulta o voo de aeronaves comerciais e jatos.
+\item A Exosfera representa a última fronteira antes do vácuo espacial, onde os gases se dissipam e satélites artificiais orbitam o planeta.
+\item As auroras boreais são fenômenos luminosos que ocorrem exclusivamente na Troposfera, junto às nuvens de tempestade.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{10.} Organize as ideias: Associe diretamente cada um dos quatro fenômenos listados a seguir com a sua respectiva camada atmosférica de ocorrência predominante. 
+
+\begin{enumerate}[label=\Roman*., itemsep=\espacoAlt]
+\item Formação de Granizo e Ciclones.
+\item Absorção de Raios Ultravioleta.
+\item Atrito e fragmentação de rochas espaciais (Estrelas Cadentes).
+\item Interação de ventos solares com partículas magnéticas (Auroras).
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{11.} A pressão exercida por uma coluna de gás sofre variações dramáticas dependendo do referencial topográfico. O gráfico correlaciona essa pressão com a elevação do terreno.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% ==========================================
+\begin{adjustbox}{trim=0cm 0cm 0cm 1cm, clip, max width={0.75\linewidth}}
+\begin{tikzpicture}
+\definecolor{azulmar}{HTML}{2980B9}
+\definecolor{fundo}{HTML}{F9EBEA}
+
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-1,-1) rectangle (6.5,5);
+
+\begin{axis}[
+    width=6cm, height=5cm,
+    axis lines=middle,
+    xlabel={Altitude (km)},
+    ylabel={Pressão},
+    xmin=0, xmax=10,
+    ymin=0, ymax=1.2,
+    xtick={0, 2, 4, 6, 8, 8.8},
+    xticklabels={0, 2, 4, 6, 8, \textbf{Everest}},
+    ytick=\empty,
+    every axis x label/.style={at={(ticklabel* cs:1.05)}, anchor=west, font=\footnotesize, align=center},
+    every axis y label/.style={at={(ticklabel* cs:1.05)}, anchor=south, font=\footnotesize, align=center},
+    tick label style={font=\footnotesize},
+    x tick label style={rotate=45, anchor=east}
+]
+\addplot [domain=0:9, samples=100, thick, azulmar, drop shadow={opacity=0.3}] {exp(-0.15*x)};
+\addplot [dashed, gray] coordinates {(8.8,0) (8.8, 0.267)};
+\addplot [mark=*, mark size=2pt, red] coordinates {(8.8, 0.267)};
+\end{axis}
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\begin{boxresponda}
+\textbf{Responda:} Baseado na interpretação gráfica do decaimento pressórico, justifique por que alpinistas que escalam montanhas acima de \textbf{8000 m} necessitam utilizar cilindros de oxigênio suplementar, mesmo sabendo que a proporção percentual de oxigênio no ar continua sendo de aproximadamente \textbf{21\%}.
+\end{boxresponda}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{12.} (ENEM - Adaptada) A ação humana tem gerado impactos severos na dinâmica dos gases do nosso planeta. A emissão histórica de compostos como os CFCs (Clorofluorcarbonetos) desencadeou um processo de degradação em uma importante camada de proteção terrestre, elevando os índices de doenças de pele e cataratas na população global. 
+
+O escudo gasoso diretamente afetado por esses compostos e a camada da atmosfera onde ele se encontra alojado são, respectivamente:
+
+\begin{enumerate}[label=\alph*), itemsep=\espacoAlt]
+\item Camada de Metano na Mesosfera.
+\item Camada de Ozônio na Estratosfera.
+\item Cinturão Magnético na Exosfera.
+\item Camada de Nitrogênio na Troposfera.
+\item Gás Carbônico na Termosfera.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+\subsection*{Capítulo 3: Rochas e Minerais}
+\vspace{-0.2cm}\noindent\rule{\linewidth}{1.5pt} 
+\par\vspace{\espacoPosTitulo}
+\subsubsection*{13.} O fluxograma ilustra o modelo geológico contínuo de transformação dos materiais da litosfera terrestre. As setas representam processos físicos e químicos que ocorrem ao longo de milhões de anos.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% ==========================================
+\begin{adjustbox}{trim=0cm 1.1cm 0cm 1.4cm, clip, max width={0.75\linewidth}}
+\begin{tikzpicture}
+\definecolor{igneas}{HTML}{E74C3C}
+\definecolor{sedimentares}{HTML}{F1C40F}
+\definecolor{metamorficas}{HTML}{9B59B6}
+\definecolor{magma}{HTML}{D35400}
+\definecolor{fundo}{HTML}{F8F9FA}
+
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-4.5,-3.8) rectangle (4.5,4.5);
+
+\node[fill=igneas, text=white, font=\sffamily\bfseries, rounded corners=3pt, minimum width=2.4cm, minimum height=1cm, drop shadow={opacity=0.2}] (R1) at (-2.5,2) {Rochas Ígneas};
+\node[fill=sedimentares, text=black, font=\sffamily\bfseries, rounded corners=3pt, minimum width=2.8cm, minimum height=1cm, drop shadow={opacity=0.2}] (R2) at (2.5,2) {Rochas Sedimentares};
+\node[fill=metamorficas, text=white, font=\sffamily\bfseries, rounded corners=3pt, minimum width=2.8cm, minimum height=1cm, drop shadow={opacity=0.2}] (R3) at (1.5,-1.5) {Rochas Metamórficas};
+\node[fill=magma, text=white, font=\sffamily\bfseries, rounded corners=3pt, minimum width=1.8cm, minimum height=0.8cm, drop shadow={opacity=0.2}] (Magma) at (-2.5,-1.5) {Magma};
+
+\draw[-stealth, thick, color=gray] (Magma) -- (R1) node[midway, left, fill=fundo, inner sep=2pt, font=\sffamily\tiny, align=center] {Resfriamento};
+\draw[-stealth, thick, color=gray] (R1) -- (R2) node[midway, above, fill=fundo, inner sep=2pt, font=\sffamily\tiny, align=center] {Processo X};
+\draw[-stealth, thick, color=gray] (R2) -- (R3) node[midway, right, fill=fundo, inner sep=2pt, font=\sffamily\tiny, align=center] {Pressão e \\ Temp.};
+\draw[-stealth, thick, color=gray] (R3) -- (Magma) node[midway, below, fill=fundo, inner sep=2pt, font=\sffamily\tiny, align=center] {Fusão};
+\draw[-stealth, thick, color=gray] (R1) -- (R3) node[midway, right, fill=fundo, inner sep=2pt, font=\sffamily\tiny, align=center] {Calor e Pressão};
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\begin{boxresponda}
+\textbf{Responda:} Com base na dinâmica apresentada, identifique qual conjunto de fenômenos naturais (erosão, fusão, solidificação ou compactação) está oculto sob o rótulo \textbf{Processo X} para permitir a formação das rochas sedimentares a partir das ígneas.
+\end{boxresponda}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{14.} A classificação das rochas baseia-se na sua gênese (origem). Julgue as afirmativas a seguir, classificando-as como Verdadeiras (V) ou Falsas (F).
+
+\begin{enumerate}[label=(\ \ ), itemsep=\espacoAlt]
+\item As rochas ígneas ou magmáticas, como o granito e o basalto, formam-se exclusivamente pelo resfriamento e solidificação do magma.
+\item O mármore é classificado como uma rocha sedimentar, originada pela deposição de areia no fundo de antigos oceanos.
+\item Rochas metamórficas surgem quando rochas pré-existentes sofrem transformações estruturais devido a altas pressões e temperaturas, sem chegarem a derreter.
+\item A compactação de fragmentos de outras rochas, restos de animais e vegetais dá origem às rochas sedimentares.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{15.} Os paleontólogos dedicam suas vidas a escavar e analisar fósseis, mas eles não procuram essas peças geológicas em qualquer tipo de terreno. Justifique, com base na forma de origem, por que é extremamente comum encontrar fósseis em rochas sedimentares, mas praticamente impossível encontrá-los em rochas magmáticas.
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{16.} Organize as ideias: Associe os exemplos clássicos de rochas aos seus respectivos grupos de classificação estrutural.
+
+\begin{enumerate}[label=\Roman*., itemsep=\espacoAlt]
+\item Rocha originada do resfriamento rápido da lava na superfície (Ex: Basalto).
+\item Rocha formada pela alteração do calcário submetido a enorme pressão no interior da crosta (Ex: Mármore).
+\item Rocha estruturada pela aglomeração e cimentação de grãos de quartzo (Ex: Arenito).
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{17.} O perfil estratigráfico revela uma encosta escavada pela ação de um rio ao longo de milênios, expondo diferentes leitos rochosos.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% ==========================================
+\begin{adjustbox}{trim=0cm 0cm 0cm 0cm, clip, max width=\larguraTikz}
+\begin{tikzpicture}
+\definecolor{camada1}{HTML}{D7CCC8}
+\definecolor{camada2}{HTML}{A1887F}
+\definecolor{camada3}{HTML}{795548}
+\definecolor{camada4}{HTML}{4E342E}
+\definecolor{fundo}{HTML}{E3F2FD}
+
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-1,0) rectangle (6,5);
+
+\fill[camada4, drop shadow={opacity=0.3}] (0,0.5) rectangle (4.5,1.3);
+\fill[camada3, drop shadow={opacity=0.3}] (0,1.3) rectangle (4.3,2.2);
+\fill[camada2, drop shadow={opacity=0.3}] (0,2.2) rectangle (4.1,3.2);
+\fill[camada1, drop shadow={opacity=0.3}] (0,3.2) rectangle (3.9,4.2);
+
+\fill[green!50!black, rounded corners=1pt] (0,4.2) rectangle (3.9,4.4);
+
+\node[font=\sffamily\footnotesize, white, align=center] at (2,0.9) {Camada W};
+\node[font=\sffamily\footnotesize, white, align=center] at (2,1.75) {Camada X};
+\node[font=\sffamily\footnotesize, white, align=center] at (2,2.7) {Camada Y};
+\node[font=\sffamily\footnotesize, black, align=center] at (2,3.7) {Camada Z};
+
+\draw[thick, -stealth] (-0.5, 4.4) -- (-0.5, 0.5);
+\node[font=\sffamily\tiny, rotate=90, align=center] at (-0.8, 2.5) {Aprofundamento Escavação};
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\begin{boxresponda}
+\textbf{Responda:} Aplicando o Princípio da Superposição das camadas geológicas (considerando que não houve dobramentos ou inversões tectônicas nesse terreno), determine qual das camadas (W, X, Y ou Z) é a mais antiga e justifique fisicamente a sua resposta.
+\end{boxresponda}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{18.} (Estilo VUNESP) O Pão de Açúcar, um dos mais famosos cartões-postais da cidade do Rio de Janeiro, é formado predominantemente por gnaisse, uma rocha que apresenta bandas claras e escuras intercaladas. Essa rocha não se originou de erupções vulcânicas diretas nem da deposição em leitos de rios, mas sim de granitos antiquíssimos que foram submetidos a condições extremas nas profundezas da crosta ao longo de eras geológicas.
+
+Considerando os processos geológicos descritos, a rocha que forma o Pão de Açúcar classifica-se como:
+
+\begin{enumerate}[label=\alph*), itemsep=\espacoAlt]
+\item Sedimentar química, resultante da evaporação de oceanos primitivos.
+\item Magmática intrusiva, resfriada lentamente no núcleo da Terra.
+\item Metamórfica, resultante da alteração estrutural promovida por calor e pressão.
+\item Magmática efusiva, originada pelo rápido resfriamento da lava no mar.
+\item Sedimentar clástica, formada pela compactação da areia da praia ao longo dos milênios.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{19.} (ENEM - Adaptada) Monumentos históricos de pedra calcária ou mármore, localizados em grandes centros urbanos industrializados, sofrem um desgaste muito mais acelerado do que aqueles situados em regiões rurais. A interação dos gases poluentes (como dióxido de enxofre e óxidos de nitrogênio) com a umidade atmosférica gera soluções ácidas que reagem quimicamente com os minerais dessas esculturas, desgastando-as progressivamente.
+
+Esse processo de alteração e desgaste das rochas pela interação com agentes atmosféricos e químicos é denominado:
+
+\begin{enumerate}[label=\alph*), itemsep=\espacoAlt]
+\item Vulcanismo primário.
+\item Intemperismo.
+\item Tectonismo de placas.
+\item Litificação.
+\item Cristalização magmática.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\subsection*{Capítulo 4: Fósseis}
+\vspace{-0.2cm}\noindent\rule{\linewidth}{1.5pt} 
+\par\vspace{\espacoPosTitulo}
+\subsubsection*{20.} O diagrama esquematiza o processo tafonômico (fossilização) de um organismo marinho, desde o instante da morte até a sua descoberta geológica.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% ==========================================
+\begin{adjustbox}{trim=0cm 0cm 0cm 0cm, clip, max width=\larguraTikz}
+\begin{tikzpicture}
+\definecolor{fundo}{HTML}{FDFEFE}
+\definecolor{agua}{HTML}{AED6F1}
+\definecolor{areia}{HTML}{F5CBA7}
+\definecolor{rocha1}{HTML}{D4AC0D}
+\definecolor{rocha2}{HTML}{9A7D0A}
+
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-1,0) rectangle (13,4);
+
+\fill[agua, opacity=0.7] (0,1) rectangle (3.5,3.5);
+\fill[areia] (0,0.5) rectangle (3.5,1);
+\node[font=\sffamily\scriptsize, align=center] at (1.75, 3.7) {1. Morte do Organismo};
+\draw[thick, gray] (1.75, 2.5) ellipse (0.4 and 0.15);
+\draw[thick, gray] (1.35, 2.5) -- (1.1, 2.7) -- (1.1, 2.3) -- cycle;
+\draw[-stealth, dashed, gray] (1.75, 2.2) -- (1.75, 1.2);
+
+\fill[agua, opacity=0.7] (4.5,2.5) rectangle (8,3.5);
+\fill[rocha1] (4.5,1.5) rectangle (8,2.5);
+\fill[areia] (4.5,0.5) rectangle (8,1.5);
+\node[font=\sffamily\scriptsize, align=center] at (6.25, 3.7) {2. Deposição de Sedimentos};
+\draw[thick, black] (6.25, 1) -- (6.6, 1); \draw[thick, black] (6.4, 0.9) -- (6.4, 1.1);
+\node[font=\sffamily\tiny, align=center] at (6.25, 2) {Acúmulo \\ de Areia/Lama};
+
+\fill[rocha2] (9,2) rectangle (12.5,3.5);
+\fill[rocha1] (9,1.5) rectangle (12.5,2);
+\fill[areia] (9,0.5) rectangle (12.5,1.5);
+\node[font=\sffamily\scriptsize, align=center] at (10.75, 3.7) {3. Compactação (Milhões de anos)};
+\draw[ultra thick, white] (10.75, 1) -- (11.1, 1); \draw[ultra thick, white] (10.9, 0.9) -- (10.9, 1.1);
+
+\draw[thick, dashed, gray] (4,0.5) -- (4,3.5);
+\draw[thick, dashed, gray] (8.5,0.5) -- (8.5,3.5);
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\begin{boxresponda}
+\textbf{Responda:} Com base na sequência ilustrada, explique qual é a principal razão pela qual o "soterramento rápido" (Painel 2) por lama ou areia é uma condição crucial para que os restos do animal se transformem em fóssil, em vez de desaparecerem completamente.
+\end{boxresponda}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{21.} A formação de um fóssil é considerada um "acidente geológico", pois a maioria absoluta dos seres vivos que já existiram na Terra não deixou vestígios. Julgue as afirmativas como Verdadeiras (V) ou Falsas (F).
+
+\begin{enumerate}[label=(\ \ ), itemsep=\espacoAlt]
+\item Partes moles dos organismos, como músculos, pele e órgãos internos, são facilmente fossilizadas na maioria das rochas sedimentares.
+\item Pegadas, marcas de cauda e fezes petrificadas (coprólitos) são classificadas como icnofósseis, ou fósseis de vestígios.
+\item O âmbar, uma resina vegetal fossilizada, tem a capacidade de preservar insetos inteiros, mantendo intactos detalhes de seus corpos.
+\item Para datar as eras geológicas da Terra, os paleontólogos preferem utilizar rochas magmáticas formadas na atualidade, pois contêm os fósseis mais preservados.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{22.} Os fósseis não são apenas curiosidades de museu; eles funcionam como cápsulas do tempo da biologia e da geologia. Descreva, com suas palavras, qual a importância do estudo dos fósseis para a compreensão das eras geológicas e da evolução da vida em nosso planeta.
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{23.} Organize as ideias: Associe os tipos de registro paleontológico com a sua correta definição.
+
+\begin{enumerate}[label=\Roman*., itemsep=\espacoAlt]
+\item Fóssil de Corpo (Somatofóssil).
+\item Fóssil de Vestígio (Icnofóssil).
+\item Molde Fóssil.
+\end{enumerate}
+
+\begin{boxresponda}
+\textbf{Associe corretamente:} \\
+(\ \ ) O organismo original foi totalmente dissolvido, mas deixou uma cavidade na rocha com o formato exato do seu corpo. \\
+(\ \ ) Preservação de ossos, dentes, carapaças ou conchas de um organismo. \\
+(\ \ ) Marcas de atividade vital preservadas em rocha, como pegadas de um dinossauro na lama que petrificou.
+\end{boxresponda}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{24.} (Estilo OBA) Na bioestratigrafia, fósseis específicos podem ser usados para correlacionar a idade de rochas em diferentes partes do mundo. O esquema ilustra perfis rochosos de duas montanhas situadas a centenas de quilômetros de distância.
+
+\begin{center}
+% ==========================================
+% CONTROLE INDIVIDUAL DESTA IMAGEM:
+% ==========================================
+\begin{adjustbox}{trim=0cm 0cm 0cm 0cm, clip, max width=\larguraTikz}
+\begin{tikzpicture}
+\definecolor{fundo}{HTML}{FAFAFA}
+\definecolor{camA}{HTML}{D2B4DE}
+\definecolor{camB}{HTML}{A9CCE3}
+\definecolor{camC}{HTML}{F9E79F}
+\definecolor{camD}{HTML}{F5CBA7}
+
+\fill[fundo, rounded corners=5pt, drop shadow={opacity=0.15, shadow xshift=2pt, shadow yshift=-2pt}] (-1,0) rectangle (9,5.5);
+
+\node[font=\sffamily\bfseries, align=center] at (1.5, 5) {Sítio Arqueológico 1};
+\fill[camD, drop shadow={opacity=0.2}] (0,0.5) rectangle (3,1.5);
+\fill[camC, drop shadow={opacity=0.2}] (0,1.5) rectangle (3,2.5);
+\fill[camB, drop shadow={opacity=0.2}] (0,2.5) rectangle (3,3.5);
+\fill[camA, drop shadow={opacity=0.2}] (0,3.5) rectangle (3,4.5);
+
+\node[font=\sffamily\bfseries, align=center] at (6.5, 5) {Sítio Arqueológico 2};
+\fill[camC, drop shadow={opacity=0.2}] (5,0.5) rectangle (8,1.5);
+\fill[camB, drop shadow={opacity=0.2}] (5,1.5) rectangle (8,2.5);
+\fill[camA, drop shadow={opacity=0.2}] (5,2.5) rectangle (8,3.5);
+\fill[gray!30, drop shadow={opacity=0.2}] (5,3.5) rectangle (8,4.5);
+
+\node[font=\Huge, align=center] at (1.5, 2) {\textbf{$\sim$}};
+\node[font=\sffamily\tiny, align=center] at (1.5, 1.8) {Fóssil Guia};
+
+\node[font=\Huge, align=center] at (6.5, 1) {\textbf{$\sim$}};
+\node[font=\sffamily\tiny, align=center] at (6.5, 0.8) {Fóssil Guia};
+
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (0.5, 4) {Cam. 1};
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (0.5, 3) {Cam. 2};
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (0.5, 2) {Cam. 3};
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (0.5, 1) {Cam. 4};
+
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (5.5, 4) {Cam. W};
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (5.5, 3) {Cam. X};
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (5.5, 2) {Cam. Y};
+\node[fill=white, inner sep=1pt, rounded corners=1pt, font=\sffamily\tiny, align=center] at (5.5, 1) {Cam. Z};
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\begin{boxresponda}
+\textbf{Responda:} Observando a presença do mesmo "Fóssil Guia" em ambos os locais, qual camada do Sítio Arqueológico 2 (W, X, Y ou Z) possui aproximadamente a mesma idade geológica da \textbf{Camada 3} do Sítio Arqueológico 1? 
+\end{boxresponda}
+\par\vspace{\espacoQuestao}
+
+\noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
+\par\vspace{\espacoPreQuestao}
+\subsubsection*{25.} (Estilo ENEM) Para que um fóssil seja considerado um excelente "fóssil-guia" ou "fóssil-índice" e auxilie os cientistas na datação de estratos rochosos em escala global, a espécie extinta deve possuir algumas características vitais. Um exemplo notável são os Trilobitas, artrópodes marinhos que dominaram os mares da Era Paleozoica.
+
+Para ser um fóssil-guia eficiente, a espécie fossilizada deve ter apresentado em vida:
+
+\begin{enumerate}[label=\alph*), itemsep=\espacoAlt]
+\item Existência prolongada por todas as eras geológicas e distribuição territorial muito restrita.
+\item Existência num período de tempo geológico relativamente curto e ampla distribuição geográfica mundial.
+\item Corpo predominantemente formado por tecidos moles e ausência total de carapaças ou esqueletos.
+\item Adaptação exclusiva a ambientes vulcânicos de altíssimas temperaturas.
+\item Rápida decomposição imediata após a morte, impedindo a mineralização de seus ossos.
+\end{enumerate}
+\par\vspace{\espacoQuestao}
+
+\end{multicols*}
+\end{document}
