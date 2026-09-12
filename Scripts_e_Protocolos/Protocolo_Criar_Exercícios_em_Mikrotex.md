@@ -37,7 +37,7 @@ Atue como um Especialista em Material Didático e Engenheiro TikZ. Ao ler este p
   * **Se o usuário escolheu (A - Criação Inédita):** Ative o fluxo padrão de criação autoral baseada no Banco de Prompts Pedagógicos e nas Fases de Blocos (Seção 2).
   * **Se o usuário escolheu (B - Reconversão de Material Externo):** Ative imediatamente o **Modo Fidelidade Absoluta**. A IA NÃO vai criar questões novas; ela vai ler o texto/PDF que o usuário colar no chat e aplicar estritamente as seguintes regras:
     1. **Fidelidade Numérica e Sequencial:** A numeração e a quantidade de exercícios DEVEM espelhar rigidamente o material fornecido pela escola (sem pular ou reorganizar a ordem).
-    2. **Dupla Camada de Redação:** Reescreva os enunciados eliminando ambiguidades e padronizando para a linguagem limpa, direta e descomplicada do aluno, preservando integralmente o escopo matemático/físico original.
+    2. **Dupla Camada de Redação (Tutor IA):** É OBRIGATÓRIO preservar o texto do material de origem INTACTO dentro do ambiente enunciadoLiteral, garantindo fidelidade absoluta ao que o aluno lê. A "reescrita limpa e sem ambiguidades" e a quebra do problema devem ser feitas EXCLUSIVAMENTE dentro do tópico "Ancoragem" na caixa de Resolução do Professor.
     3. **Gabarito Expandido Obrigatório:** Para cada questão importada, gere o bloco `\ifgabarito` completo contendo o passo a passo detalhado, eventuais tabelas de dados (`\begin{tabular}`) ou mapas conceituais (TikZ), e a **Nota Pedagógica** em destaque utilizando obrigatoriamente a caixa verde (`boxexplicacao`).
 
 1.2. **Passo 2 (Análise Pedagógica, Distribuição e Imposição de Restrições):**
@@ -126,22 +126,29 @@ Atue como um Especialista em Material Didático e Engenheiro TikZ. Ao ler este p
     \subsection*{Nome do Capítulo ou Tema Aqui}
     \vspace{-0.2cm}\noindent\rule{\linewidth}{1.5pt} 
     \par\vspace{\espacoPosTitulo}
-    \subsubsection*{1.} [Texto da primeira questão do capítulo aqui]
+    \subsubsection*{1.} 
+    \begin{enunciadoLiteral}
+    [Texto da primeira questão do capítulo aqui]
+    \end{enunciadoLiteral}
     
     \ifgabarito
+        % --- CAIXA LARANJA (Resolução e Tutor) ---
         \begin{tcolorbox}[colback=CorTitUm!5, colframe=CorTitUm, boxrule=1pt, arc=4pt, left=6pt, right=6pt, top=6pt, bottom=6pt]
-        \small\textbf{\textcolor{CorTitUm}{Resolução do Professor:}}\par\vspace{0.1cm}
+        \small\textbf{\textcolor{CorTitUm}{Roteiro do Professor e Tutor IA:}}\par\vspace{0.1cm}
         \color{CinzaEscuro}
-        [Passo a passo detalhado da resolução matemática]
+        \textbf{1. Ancoragem:} [Pergunta inicial para destravar o raciocínio do aluno sem dar a resposta].\par\vspace{0.1cm}
+        \textbf{2. Resolução Matemática:}\\
+        [Passo a passo detalhado da resolução]
         
-        % (Opcional/Obrigatório se a questão exigir) Injeção de recurso visual de síntese:
+        % (Opcional) Injeção de recurso visual de síntese:
         % Ex: Tabela limpa \begin{tabular}... ou Fluxograma/Mapa conceitual TikZ
-        
-        \vspace{0.2cm}
-        \begin{boxexplicacao}
-        \textbf{Nota Pedagógica (Bastidores do Conceito):} [Explicação detalhada dos motivos, armadilhas comuns dos alunos e dicas de abordagem em sala para o professor].
-        \end{boxexplicacao}
         \end{tcolorbox}
+        \vspace{0.15cm}
+        
+        % --- CAIXA VERDE (Nota Pedagógica) ---
+        \begin{boxexplicacao}
+        \textbf{Nota Pedagógica (Bastidores do Conceito):} [Explicação detalhada dos motivos, armadilhas comuns dos alunos e dicas de abordagem em sala].
+        \end{boxexplicacao}
     \fi
     
     \par\vspace{\espacoQuestao}
@@ -149,22 +156,28 @@ Atue como um Especialista em Material Didático e Engenheiro TikZ. Ao ler este p
   * **MOLDE B (Para as DEMAIS questões normais - Diretas ou ENEM):**
     \noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}} 
     \par\vspace{\espacoPreQuestao}
-    \subsubsection*{XX.} [Texto da questão aqui]
+    \subsubsection*{XX.} 
+    \begin{enunciadoLiteral}
+    [Texto da questão aqui]
+    \end{enunciadoLiteral}
     
     \ifgabarito
+        % --- CAIXA LARANJA (Resolução e Tutor) ---
         \begin{tcolorbox}[colback=CorTitUm!5, colframe=CorTitUm, boxrule=1pt, arc=4pt, left=6pt, right=6pt, top=6pt, bottom=6pt]
-        \small\textbf{\textcolor{CorTitUm}{Resolução do Professor:}}\par\vspace{0.1cm}
+        \small\textbf{\textcolor{CorTitUm}{Roteiro do Professor e Tutor IA:}}\par\vspace{0.1cm}
         \color{CinzaEscuro}
-        [Passo a passo detalhado da resolução matemática]
+        \textbf{1. Ancoragem:} [Pergunta inicial para destravar o raciocínio do aluno sem dar a resposta].\par\vspace{0.1cm}
+        \textbf{2. Resolução Matemática:}\\
+        [Passo a passo detalhado da resolução]
         
-        % (Opcional/Obrigatório se a questão exigir) Injeção de recurso visual de síntese:
-        % Ex: Tabela limpa \begin{tabular}... ou Fluxograma/Mapa conceitual TikZ
-        
-        \vspace{0.2cm}
-        \begin{boxexplicacao}
-        \textbf{Nota Pedagógica (Bastidores do Conceito):} [Explicação detalhada dos motivos, armadilhas comuns dos alunos e dicas de abordagem em sala para o professor].
-        \end{boxexplicacao}
+        % (Opcional) Injeção de recurso visual de síntese:
         \end{tcolorbox}
+        \vspace{0.15cm}
+        
+        % --- CAIXA VERDE (Nota Pedagógica) ---
+        \begin{boxexplicacao}
+        \textbf{Nota Pedagógica (Bastidores do Conceito):} [Explicação detalhada dos motivos, armadilhas comuns dos alunos e dicas de abordagem em sala].
+        \end{boxexplicacao}
     \fi
     
     \par\vspace{\espacoQuestao}
@@ -172,25 +185,32 @@ Atue como um Especialista em Material Didático e Engenheiro TikZ. Ao ler este p
   * **MOLDE C (Para Questões de Diagnóstico Lógico - O "Box Responda"):**
     \noindent\textcolor{CorLinha}{\rule{\linewidth}{0.5pt}}
     \par\vspace{\espacoPreQuestao}
-    \subsubsection*{XX.} [Texto do contexto ou da resolução fictícia]
+    \subsubsection*{XX.} 
+    \begin{enunciadoLiteral}
+    [Texto do contexto ou da resolução fictícia]
+    
     \begin{boxresponda}
     \textbf{Responda:} [Roteiro guiado]
     \end{boxresponda}
+    \end{enunciadoLiteral}
     
     \ifgabarito
+        % --- CAIXA LARANJA (Resolução e Tutor) ---
         \begin{tcolorbox}[colback=CorTitUm!5, colframe=CorTitUm, boxrule=1pt, arc=4pt, left=6pt, right=6pt, top=6pt, bottom=6pt]
-        \small\textbf{\textcolor{CorTitUm}{Resolução do Professor:}}\par\vspace{0.1cm}
+        \small\textbf{\textcolor{CorTitUm}{Roteiro do Professor e Tutor IA:}}\par\vspace{0.1cm}
         \color{CinzaEscuro}
-        [Passo a passo detalhado da resolução matemática]
+        \textbf{1. Ancoragem:} [Pergunta inicial focada no erro lógico para destravar a análise do aluno].\par\vspace{0.1cm}
+        \textbf{2. Resolução Matemática:}\\
+        [Passo a passo detalhado do diagnóstico e correção da falha]
         
-        % (Opcional/Obrigatório se a questão exigir) Injeção de recurso visual de síntese:
-        % Ex: Tabela limpa \begin{tabular}... ou Fluxograma/Mapa conceitual TikZ
-        
-        \vspace{0.2cm}
-        \begin{boxexplicacao}
-        \textbf{Nota Pedagógica (Bastidores do Conceito):} [Explicação detalhada dos motivos, armadilhas comuns dos alunos e dicas de abordagem em sala para o professor].
-        \end{boxexplicacao}
+        % (Opcional) Injeção de recurso visual de síntese:
         \end{tcolorbox}
+        \vspace{0.15cm}
+        
+        % --- CAIXA VERDE (Nota Pedagógica) ---
+        \begin{boxexplicacao}
+        \textbf{Nota Pedagógica (Bastidores do Conceito):} [Explicação detalhada dos motivos lógicos, armadilhas comuns e dicas de abordagem em sala].
+        \end{boxexplicacao}
     \fi
     
     \par\vspace{\espacoQuestao}
@@ -293,6 +313,8 @@ Frações e Fórmulas: É OBRIGATÓRIO usar o comando \mfrac{...}{...} para toda
 \usepackage{enumitem}
 \setlist{itemsep=0.4cm, topsep=0.1cm, parsep=0pt, partopsep=0pt}
 \newcommand{\larguraTikz}{0.85\linewidth} 
+% --- TAG SEMÂNTICA PARA LEITURA DE IA (INVISÍVEL NO PDF) ---
+\newenvironment{enunciadoLiteral}{}{}
 
 % --- MATEMÁTICA E CORES ---
 \usepackage{amsmath, amsfonts, amssymb, nccmath, mathastext}
@@ -422,6 +444,8 @@ Frações e Fórmulas: É OBRIGATÓRIO usar o comando \mfrac{...}{...} para toda
 \usepackage{enumitem}
 \setlist{itemsep=0.4cm, topsep=0.1cm, parsep=0pt, partopsep=0pt}
 \newcommand{\larguraTikz}{0.85\linewidth} 
+% --- TAG SEMÂNTICA PARA LEITURA DE IA (INVISÍVEL NO PDF) ---
+\newenvironment{enunciadoLiteral}{}{}
 
 % --- MATEMÁTICA E CORES ---
 \usepackage{amsmath, amsfonts, amssymb, nccmath, mathastext}
@@ -485,10 +509,11 @@ Frações e Fórmulas: É OBRIGATÓRIO usar o comando \mfrac{...}{...} para toda
 \vspace*{-1.7cm}
 
 % --- CABEÇALHO PRINCIPAL ESTILO CADERNO (Apenas 1ª página) ---
+% --- CABEÇALHO PRINCIPAL ESTILO CADERNO (Apenas 1ª página) ---
 \noindent
-\begin{minipage}[t]{0.09\linewidth}
+\begin{minipage}[t]{0.12\linewidth}
     \vspace{8pt}
-    \includegraphics[width=\linewidth, height=1.77cm, keepaspectratio]{../../../Modelos_Templates/Elv_novo_logo.png} 
+    \centering\textsf{\textbf{\large [ESCOLA]}}
 \end{minipage}%
 \hfill
 \begin{minipage}[t]{0.90\linewidth} 
@@ -531,12 +556,12 @@ Frações e Fórmulas: É OBRIGATÓRIO usar o comando \mfrac{...}{...} para toda
 5.4. **Ciclo de Auditoria (Apenas 2 Etapas - EXECUÇÃO ISOLADA OBRIGATÓRIA):**
 *(TRAVA DE ISOLAMENTO: É PROIBIDO rodar as Etapas Alpha e Beta na mesma resposta. Rode APENAS a Etapa Alpha, exiba o relatório, pergunte "Posso ir para a Etapa Beta?" e PARE).*
 
-  * **Etapa Alpha (Matemática e Trava Viso-Matemática - ITEM A ITEM):** É ESTRITAMENTE PROIBIDO fazer auditoria por amostragem ou dar um veredito genérico (Ex: "Verifiquei todas e estão ok"). Você DEVE gerar uma lista analisando **CADA QUESTÃO** do lote entregue, uma por uma. Para CADA questão, responda brevemente:
-    * **Q[X]:** O gabarito gerado no `\ifgabarito` é único e a matemática está correta? (Sim/Não). 
+  * **Etapa Alpha (Matemática, Sincronia e Tags Tutor IA - ITEM A ITEM):** É ESTRITAMENTE PROIBIDO fazer auditoria por amostragem. Você DEVE gerar uma lista analisando CADA QUESTÃO, uma por uma. Para cada questão, responda brevemente:
+    * **Q[X]:** A matemática da resolução está 100% correta e sem alucinações? (Sim/Não). 
     * **Sincronia TikZ:** Os números citados na resolução batem milimetricamente com o código TikZ gerado? (N/A ou Sim/Não).
+    * **Tutor IA:** O texto base foi devidamente encapsulado em `\begin{enunciadoLiteral}` e a caixa laranja possui o item "1. Ancoragem:"? (Sim/Não).
     * **Status:** [Aprovada / Requer Correção].
-    *(Ao terminar a lista de todas as questões do lote, PARE AQUI E PEÇA PERMISSÃO PARA A ETAPA BETA).*
-
+    
   * **Etapa Beta (Robofobia e Sintaxe LaTeX):** Verifique rigorosamente a estrutura do lote:
     1) **ROBOFOBIA:** Há frases artificiais (ex: "extraia da imagem", "veja a figura abaixo")? O Teste Cego foi respeitado?
     2) **SINTAXE GABARITO:** O bloco `\ifgabarito` foi aberto e fechado (`\fi`) corretamente OBRIGATORIAMENTE antes do `\vspace` final em todas as questões?
