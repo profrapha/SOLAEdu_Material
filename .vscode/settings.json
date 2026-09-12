@@ -1,3 +1,4 @@
 {
-    "github.copilot.chat.localeOverride": "pt-br"
+    "github.copilot.chat.localeOverride": "pt-br",
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }
